@@ -141,7 +141,7 @@ class TfliteFlutterHelperPlugin : FlutterPlugin,
 	}
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
-											grantResults: IntArray?): Boolean {
+											grantResults: IntArray): Boolean {
 		when (requestCode) {
 			AUDIO_RECORD_PERMISSION_CODE -> {
 					permissionToRecordAudio = grantResults.isNotEmpty() &&
