@@ -10,7 +10,7 @@ class ImageContainer extends BaseImageContainer {
   late final Image _image;
 
   ImageContainer._(Image image) {
-    this._image = image;
+    _image = image;
   }
 
   static ImageContainer create(Image image) {
@@ -24,10 +24,11 @@ class ImageContainer extends BaseImageContainer {
 
   @override
   ColorSpaceType get colorSpaceType {
-    int len = _image.data.length;
-    bool isGrayscale = true;
-    for (int i = (len / 4).floor(); i < _image.data.length; i++) {
-      if (_image.data[i] != 0) {
+    final unint8List = image.toUint8List();
+    final len = unint8List.length;
+    var isGrayscale = true;
+    for (var i = (len / 4).floor(); i < unint8List.length; i++) {
+      if (unint8List[i] != 0) {
         isGrayscale = false;
         break;
       }
@@ -41,7 +42,7 @@ class ImageContainer extends BaseImageContainer {
 
   @override
   TensorBuffer getTensorBuffer(TfLiteType dataType) {
-    TensorBuffer buffer = TensorBuffer.createDynamic(dataType);
+    var buffer = TensorBuffer.createDynamic(dataType);
     ImageConversions.convertImageToTensorBuffer(image, buffer);
     return buffer;
   }
