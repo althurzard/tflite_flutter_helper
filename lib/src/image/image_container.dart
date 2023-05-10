@@ -24,11 +24,11 @@ class ImageContainer extends BaseImageContainer {
 
   @override
   ColorSpaceType get colorSpaceType {
-    final unint8List = image.toUint8List();
-    final len = unint8List.length;
+    final data = image.buffer.asUint32List();
+    final len = data.length;
     var isGrayscale = true;
-    for (var i = (len / 4).floor(); i < unint8List.length; i++) {
-      if (unint8List[i] != 0) {
+    for (var i = (len / 4).floor(); i < data.length; i++) {
+      if (data[i] != 0) {
         isGrayscale = false;
         break;
       }
